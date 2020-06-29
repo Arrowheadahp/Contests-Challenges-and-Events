@@ -1,8 +1,15 @@
-def RE():
-    return [int(i) for i in raw_input().split()]
+from math import sqrt
 
-def sree(diff):
-    return (int((1+8*diff)**0.5)-1)/2
+def RE():
+    return [long(i) for i in raw_input().split()]
+
+def SA(b, c):
+    D = b**2 + 4*c
+    rD = int(sqrt(D))
+    while rD**2 > D:
+        rD-=1
+
+    return (rD-b)/2
 
 def func():
     K = RE()
@@ -10,7 +17,8 @@ def func():
     mn = K.index(min(K))
     diff = K[mx] - K[mn]
     
-    x = sree(diff)
+##    x = (long(sqrt(1+8*diff))-1)/2
+    x = SA(1, 2*diff)
 
     K[mx] -= (x*(x+1))/2
 
@@ -22,7 +30,8 @@ def func():
         x = x+1
         K[1] -= x
 
-    t = (int((x*x+4*K[0])**0.5) -x)/2
+##    t = (long(sqrt(x*x+4*K[0])) -x)/2
+    t = SA(x, K[0])
 
     K[0]-= (t*x+t*t)
     K[1]-= t*(t+x+1)
@@ -41,4 +50,4 @@ def func():
 
 for q in range(input()):
     n, l, r = func()
-    print ('Case #%d: %d %d %d' %(q+1, n, l, r))
+    print ('Case #%d:'%(q+1)), n, l, r

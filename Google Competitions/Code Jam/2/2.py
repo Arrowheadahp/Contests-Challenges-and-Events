@@ -60,16 +60,93 @@ def func2():
     for _ in range(d):
         u, v = RE()
         L.append(abs(X[u-1]-X[v-1])*100)
-    return L
-            
-
-
-
-    
+    return L    
     return 0
 
+
+
+
+
+
+def func3():
+    c, d = RE()
+    X = [0] + RE()
+
+    T = [(x, i) for i, x in enumerate(X) if x>=0] + [(float('inf'), -1)]
+    R = [(-x, i) for i, x in enumerate(X) if x<0] + [(c, -1)]
+
+    T.sort(key = lambda x: x[0])
+    R.sort(key = lambda x: x[0])
+
+##    print T, R
+
+    T.reverse()
+    R.reverse()
+
+    t = T.pop()
+    r = R.pop()
+    M = [-1 for _ in range(c+1)]
+    n = 0
+    time = 0
+    
+
+    while R:
+        if r[0] > n:
+            n+=1
+            time = t[0]
+            M[t[1]] = time
+            t = T.pop()
+        else:
+            time += r[0]==n
+            n+=1
+            M[r[1]] = time
+            r = R.pop()
+
+##        print M, t, r
+
+    M.pop()
+##    print M
+    
+    L = []
+    for _ in range(d):
+        u, v = RE()
+        L.append(abs(M[u-1]-M[v-1]))
+    return L  
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 for q in range(input()):
-    x = func()
+    x = func3()
     print ('Case #%d:' %(q+1)),
     for i in x:
         if not i:
